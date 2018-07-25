@@ -10,6 +10,11 @@
         </transition>
         <i class="inverted circular search link icon"></i>
         </div>
+        <div>
+          <!-- <date-picker v-model="time1" :first-day-of-week="1" lang ="en"></date-picker> -->
+          <date-picker v-model="time2" type="datetime" :time-picker-options="timePickerOptions" lang="en"></date-picker>
+          <date-picker v-model="time3" range :shortcuts="shortcuts" lang="en"></date-picker>
+        </div>
       </form>
       
       <ul>
@@ -28,15 +33,34 @@
 </template>
 
 <script>
+import DatePicker from 'vue2-datepicker'
+
 export default {
   name: 'Skills',
+  components: { DatePicker },
   data(){
     return {
       skill: '',
       skills: [
         { "skill": "Vue.js"},
         { "skill": "Frontend Developer"}
-      ]
+      ],
+      time1: '',
+      time2: '',
+      time3: '',
+      shortcuts: [
+        {
+          text: 'Today',
+          onClick: () => {
+            this.time3 = [ new Date(), new Date() ]
+          }
+        }
+      ],
+      timePickerOptions:{
+        start: '00:00',
+        step: '00:30',
+        end: '23:30'
+      }
     }
   },
   methods: {
@@ -92,14 +116,14 @@ export default {
     box-shadow: 0px 0px 40px lightgray;
   }
 
-  input {
+  /* input {
     width: calc(100% - 40px);
     border: 0;
     padding: 20px;
     font-size: 1.3em;
     background-color: #323333;
     color: #687F7F;
-  }
+  } */
 
   .alert {
     background: #fdf2ce;

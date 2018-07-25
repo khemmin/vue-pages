@@ -10,6 +10,7 @@
 
 <script>
 import Skills from './components/Skills.vue'
+// import DatePicker from 'vue2-datepicker'
 
 export default {
   name: 'app',
