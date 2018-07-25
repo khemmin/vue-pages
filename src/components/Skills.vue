@@ -11,15 +11,16 @@
         <i class="inverted circular search link icon"></i>
         </div>
         <div>
-          <!-- <date-picker v-model="time1" :first-day-of-week="1" lang ="en"></date-picker> -->
+          <date-picker v-model="time1" :first-day-of-week="1" lang ="en"></date-picker>
           <date-picker v-model="time2" type="date" :time-picker-options="timePickerOptions" lang="en"></date-picker>
           <date-picker v-model="time3" range :shortcuts="shortcuts" lang="en"></date-picker>
-          <p v-if="time2 != null">
-          <!-- {{ time2.getDate() }}
+          <!-- <p v-if="time2 != null">
+          {{ time2.getDate() }}
           {{ time2.getMonth() }}
-          {{ time2.getFullYear() }} -->
-          </p>
+          {{ time2.getFullYear() }}
+          </p> -->
         </div>
+        
       </form>
       
       <ul>
@@ -31,7 +32,9 @@
 
         </transition-group>
       </ul>
-
+    <button class="ui secondary button" @click="getJournDatabase(10001431,2017,8,2)">
+          Okay
+    </button>
     <p>These are the skills that you possess. </p>
 
     <table class="ui celled structured table">
@@ -95,10 +98,12 @@
 
 <script>
 import DatePicker from 'vue2-datepicker'
+import axios from 'axios'
 
 export default {
   name: 'Skills',
   components: { DatePicker },
+  name : 'timeAttendance',
   data(){
     return {
       skill: '',
@@ -122,7 +127,9 @@ export default {
         start: '00:00',
         step: '00:30',
         end: '23:30'
-      }
+      },
+      JournDatabase : [],
+      JournCCureDatabase : []
     }
   },
   methods: {
@@ -138,6 +145,26 @@ export default {
     },
     remove(id) {
       this.skills.splice(id,1);
+    },
+    getJournDatabase(empcode,year,month,date){
+      axios.get("http://192.9.59.123:8081/allFromJourn/"+empcode+"/"+year+"/"+month+"/"+date)
+      .then(response => {
+        this.JournDatabase = response.data;
+        console.log(this.JournDatabase)
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+    },
+    getJournCCureDatabase(empcode,year,month,date){
+      axios.get("http://192.9.59.123:8081/allFromJournCCure/"+empcode+"/"+year+"/"+month+"/"+date)
+      .then(response =>{
+        this.JournCCureDatabase = response;
+        console.log(this.JournCCure)
+      })
+      .catch(error =>{
+        console.log(error);
+      })
     }
   }
 }
@@ -216,43 +243,4 @@ export default {
 
 </style>
 
-<script>
-
-import axios from 'axios'
-
-export default {
-  name : 'timeAttendance',
-  data(){
-    return{
-      JournDatabase : [],
-      JournCCureDatabase : []
-    }
-  },
-  methods:{
-    getJournDatabase(empcode,year,month,date){
-      axios.get("http://192.9.59.123:8081/allFromJourn/"+empcode+"/"+year+"/"+month+"/"+date)
-      .then(response => {
-        this.JournDatabase = response.data;
-        console.log(this.JournDatabase)
-      })
-      .catch(error =>{
-        console.log(error);
-      })
-    }
-    ,
-    getJournCCureDatabase(empcode,year,month,date){
-      axios.get("http://192.9.59.123:8081/allFromJournCCure/"+empcode+"/"+year+"/"+month+"/"+date)
-      .then(response =>{
-        this.JournCCureDatabase = response;
-        console.log(this.JournCCure)
-      })
-      .catch(error =>{
-        console.log(error);
-      })
-        
-      
-    }
-  }
-}
-</script>
 
