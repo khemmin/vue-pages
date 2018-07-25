@@ -12,8 +12,13 @@
         </div>
         <div>
           <!-- <date-picker v-model="time1" :first-day-of-week="1" lang ="en"></date-picker> -->
-          <date-picker v-model="time2" type="datetime" :time-picker-options="timePickerOptions" lang="en"></date-picker>
+          <date-picker v-model="time2" type="date" :time-picker-options="timePickerOptions" lang="en"></date-picker>
           <date-picker v-model="time3" range :shortcuts="shortcuts" lang="en"></date-picker>
+          <p v-if="time2 != null">
+          <!-- {{ time2.getDate() }}
+          {{ time2.getMonth() }}
+          {{ time2.getFullYear() }} -->
+          </p>
         </div>
       </form>
       
@@ -28,6 +33,62 @@
       </ul>
 
     <p>These are the skills that you possess. </p>
+
+    <table class="ui celled structured table">
+      <thead>
+        <tr>
+          <th rowspan="2">Name</th>
+          <th rowspan="2">Type</th>
+          <th rowspan="2">Files</th>
+          <th colspan="3">Languages</th>
+        </tr>
+        <tr>
+          <th>Ruby</th>
+          <th>JavaScript</th>
+          <th>Python</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alpha Team</td>
+          <td>Project 1</td>
+          <td class="right aligned">2</td>
+          <td class="center aligned">
+            <i class="large green checkmark icon"></i>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td rowspan="3">Beta Team</td>
+          <td>Project 1</td>
+          <td class="right aligned">52</td>
+          <td class="center aligned">
+            <i class="large green checkmark icon"></i>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Project 2</td>
+          <td class="right aligned">12</td>
+          <td></td>
+          <td class="center aligned">
+            <i class="large green checkmark icon"></i>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Project 3</td>
+          <td class="right aligned">21</td>
+          <td class="center aligned">
+            <i class="large green checkmark icon"></i>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
     </div>
   </div>
 </template>
@@ -48,6 +109,7 @@ export default {
       time1: '',
       time2: '',
       time3: '',
+      time4: '',
       shortcuts: [
         {
           text: 'Today',
@@ -112,7 +174,7 @@ export default {
     color: gray;
   }
 
-  .container {
+  .container {  
     box-shadow: 0px 0px 40px lightgray;
   }
 
