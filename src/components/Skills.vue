@@ -246,9 +246,11 @@ export default {
         this.JournCCureDatabase = response;
         console.log(this.JournCCure)
       })
-      .catch(error){
+      .catch(error =>{
         console.log(error);
-      }
+      })
+        
+      
     }
   }
 }
