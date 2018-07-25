@@ -215,3 +215,42 @@ export default {
 
 
 </style>
+
+<script>
+
+import axios from 'axios'
+
+export default {
+  name : 'timeAttendance',
+  data(){
+    return{
+      JournDatabase : [],
+      JournCCureDatabase : []
+    }
+  },
+  methods:{
+    getJournDatabase(empcode,year,month,date){
+      axios.get("http://192.9.59.123:8081/allFromJourn/"+empcode+"/"+year+"/"+month+"/"+date)
+      .then(response => {
+        this.JournDatabase = response.data;
+        console.log(this.JournDatabase)
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+    }
+    ,
+    getJournCCureDatabase(empcode,year,month,date){
+      axios.get("http://192.9.59.123:8081/allFromJournCCure/"+empcode+"/"+year+"/"+month+"/"+date)
+      .then(response =>{
+        this.JournCCureDatabase = response;
+        console.log(this.JournCCure)
+      })
+      .catch(error){
+        console.log(error);
+      }
+    }
+  }
+}
+</script>
+
